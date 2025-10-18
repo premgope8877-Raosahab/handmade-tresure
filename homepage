@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our gallery of custom handmade scrapbooks for weddings, birthdays, anniversaries, and travel memories.">
+    <title>Gallery - Handmade Treasure Scrapbooks</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#F8C8DC',
+                        secondary: '#D4A5A5',
+                        accent: '#C1D7AE',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'serif'],
+                        body: ['"Quicksand"', 'sans-serif'],
+                        decorative: ['"Dancing Script"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .textured-bg {
+            background-image: url('http://static.photos/vintage/1200x630/5');
+            background-size: cover;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+        }
+        .scrapbook-paper {
+            background-color: rgba(255, 253, 245, 0.85);
+            border-radius: 2px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .scrapbook-paper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23D4A5A5" stroke-width="1" stroke-opacity="0.3"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .gallery-item img {
+            transition: transform 0.5s ease;
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: #F8C8DC;
+            color: #6B46C1;
+        }
+    </style>
+</head>
+<body class="textured-bg bg-primary-100 bg-opacity-30 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-primary bg-opacity-90 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-display text-secondary-800 flex items-center">
+                <i data-feather="book-open" class="mr-2"></i>
+                <span class="font-bold">Handmade</span> Treasure
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-secondary-700 hover:text-accent-600 font-body font-semibold transition">Home</a>
+                <a href="#" class="text-secondary-700 hover:text-accent-600 font-body font-semibold transition">Gallery</a>
+                <a href="blog.html" class="text-secondary-700 hover:text-accent-600 font-body font-semibold transition">Blog</a>
+                <a href="testimonials.html" class="text-secondary-700 hover:text-accent-600 font-body font-semibold transition">Testimonials</a>
+                <a href="contact.html" class="text-secondary-700 hover:text-accent-600 font-body font-semibold transition">Contact</a>
+            </div>
+            <button class="md:hidden text-secondary-700">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <section class="py-16 px-4 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-5xl font-display text-secondary-800 mb-4">Our Scrapbook Gallery</h1>
+            <p class="text-xl text-secondary-700 max-w-2xl mx-auto font-body">
+                Browse through our collection of handcrafted scrapbooks. Each one tells a unique story through carefully designed pages.
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery Filters -->
+    <section class="px-4 mb-12">
+        <div class="container mx-auto">
+            <div class="scrapbook-paper p-6">
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button class="filter-btn active px-4 py-2 rounded-full font-body font-semibold transition" data-filter="all">All Projects</button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-body font-semibold transition" data-filter="wedding">
+                        <i data-feather="heart" class="w-4 h-4 mr-1"></i> Weddings
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-body font-semibold transition" data-filter="birthday">
+                        <i data-feather="gift" class="w-4 h-4 mr-1"></i> Birthdays
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-body font-semibold transition" data-filter="travel">
+                        <i data-feather="globe" class="w-4 h-4 mr-1"></i> Travel
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-body font-semibold transition" data-filter="anniversary">
+                        <i data-feather="clock" class="w-4 h-4 mr-1"></i> Anniversaries
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-body font-semibold transition" data-filter="family">
+                        <i data-feather="users" class="w-4 h-4 mr-1"></i> Family
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="px-4 pb-16">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Wedding Scrapbook 1 -->
+                <div class="gallery-item" data-category="wedding">
+                    <img src="http://static.photos/wedding/640x360/101" alt="Wedding Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">Elegant Garden Wedding</h3>
+                        <p class="font-body text-sm">Soft pastels with floral accents</p>
+                    </div>
+                </div>
+                
+                <!-- Birthday Scrapbook 1 -->
+                <div class="gallery-item" data-category="birthday">
+                    <img src="http://static.photos/birthday/640x360/201" alt="Birthday Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">Sweet 16 Celebration</h3>
+                        <p class="font-body text-sm">Gold foil details on blush pages</p>
+                    </div>
+                </div>
+                
+                <!-- Travel Scrapbook 1 -->
+                <div class="gallery-item" data-category="travel">
+                    <img src="http://static.photos/travel/640x360/301" alt="Travel Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">European Adventure</h3>
+                        <p class="font-body text-sm">Maps, tickets, and travel ephemera</p>
+                    </div>
+                </div>
+                
+                <!-- Anniversary Scrapbook 1 -->
+                <div class="gallery-item" data-category="anniversary">
+                    <img src="http://static.photos/wedding/640x360/102" alt="Anniversary Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">50 Golden Years</h3>
+                        <p class="font-body text-sm">Timeline of a lifetime together</p>
+                    </div>
+                </div>
+                
+                <!-- Family Scrapbook 1 -->
+                <div class="gallery-item" data-category="family">
+                    <img src="http://static.photos/family/640x360/401" alt="Family Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">Generations</h3>
+                        <p class="font-body text-sm">Family tree with vintage photos</p>
+                    </div>
+                </div>
+                
+                <!-- Wedding Scrapbook 2 -->
+                <div class="gallery-item" data-category="wedding">
+                    <img src="http://static.photos/wedding/640x360/103" alt="Wedding Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">Beachside Vows</h3>
+                        <p class="font-body text-sm">Nautical theme with sandy textures</p>
+                    </div>
+                </div>
+                
+                <!-- Birthday Scrapbook 2 -->
+                <div class="gallery-item" data-category="birthday">
+                    <img src="http://static.photos/birthday/640x360/202" alt="Birthday Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">First Birthday</h3>
+                        <p class="font-body text-sm">Whimsical animals and bright colors</p>
+                    </div>
+                </div>
+                
+                <!-- Travel Scrapbook 2 -->
+                <div class="gallery-item" data-category="travel">
+                    <img src="http://static.photos/travel/640x360/302" alt="Travel Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">National Parks Tour</h3>
+                        <p class="font-body text-sm">Rustic outdoors theme</p>
+                    </div>
+                </div>
+                
+                <!-- Wedding Scrapbook 3 -->
+                <div class="gallery-item" data-category="wedding">
+                    <img src="http://static.photos/wedding/640x360/104" alt="Wedding Scrapbook">
+                    <div class="gallery-caption">
+                        <h3 class="font-display text-lg">Winter Wonderland</h3>
+                        <p class="font-body text-sm">Silver and blue with snowflake cutouts</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-accent hover:bg-accent-600 text-white font-body font-semibold px-6 py-3 rounded-full shadow-md transition transform hover:scale-105">
+                    Load More Projects
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-accent bg-opacity-20">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-display text-secondary-800 mb-6">Ready to Create Your Own Treasure?</h2>
+            <p class="text-secondary-700 mb-8 font-body text-lg max-w-2xl mx-auto">
+                Each scrapbook we create is a unique work of art. Let's collaborate to design something truly special for your memories.
+            </p>
+            <a href="index.html#order" class="inline-block bg-primary hover:bg-primary-600 text-white font-body font-semibold px-8 py-3 rounded-full shadow-md transition transform hover:scale-105">
+                Start Your Custom Scrapbook
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-display mb-4">Handmade Treasure</h3>
+                    <p class="font-body text-secondary-300 mb-4">Creating custom scrapbooks that preserve your most precious memories in artistic, meaningful ways.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-secondary-300 hover:text-primary-300 transition">
+                            <i data-feather="instagram"></i>
+                        </a>
+                        <a href="#" class="text-secondary-300 hover:text-primary-300 transition">
+                            <i data-feather="facebook"></i>
+                        </a>
+                        <a href="#" class="text-secondary-300 hover:text-primary-300 transition">
+                            <i data-feather="pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-display mb-4">Quick Links</h4>
+                    <ul class="space-y-2 font-body text-secondary-300">
+                        <li><a href="index.html" class="hover:text-primary-300 transition">Home</a></li>
+                        <li><a href="#" class="hover:text-primary-300 transition">Gallery</a></li>
+                        <li><a href="blog.html" class="hover:text-primary-300 transition">Blog</a></li>
+                        <li><a href="testimonials.html" class="hover:text-primary-300 transition">Testimonials</a></li>
+                        <li><a href="contact.html" class="hover:text-primary-300 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display mb-4">Our Services</h4>
+                    <ul class="space-y-2 font-body text-secondary-300">
+                        <li><a href="#" class="hover:text-primary-300 transition">Wedding Scrapbooks</a></li>
+                        <li><a href="#" class="hover:text-primary-300 transition">Birthday Scrapbooks</a></li>
+                        <li><a href="#" class="hover:text-primary-300 transition">Travel Journals</a></li>
+                        <li><a href="#" class="hover:text-primary-300 transition">Family History Books</a></li>
+                        <li><a href="#" class="hover:text-primary-300 transition">Custom Orders</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display mb-4">Contact Us</h4>
+                    <ul class="space-y-2 font-body text-secondary-300">
+                        <li class="flex items-start">
+                            <i data-feather="mail" class="w-4 h-4 mt-1 mr-2"></i>
+                            <span>hello@handmadetreasure.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="phone" class="w-4 h-4 mt-1 mr-2"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="map-pin" class="w-4 h-4 mt-1 mr-2"></i>
+                            <span>123 Memory Lane, Craftville, CA 90210</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-secondary-700 mt-8 pt-8 text-center text-secondary-400 font-body">
+                <p>&copy; 2023 Handmade Treasure. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter items
+                const filter = btn.dataset.filter;
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
